@@ -38,7 +38,7 @@ LoRA (Low-Rank Adaptation)
 └── Right-sized for domain alignment tasks
 ```
 
-For a use case focused on terminology alignment, structured output formatting, and domain knowledge consistency — rather than teaching new reasoning capabilities — LoRA is the correct choice. Full fine-tuning would have been more expensive and more likely to degrade the model's general instruction-following ability.
+For a use case focused on terminology alignment, structured output formatting, and domain knowledge consistency rather than teaching new reasoning capabilities — LoRA is the correct choice. Full fine-tuning would have been more expensive and more likely to degrade the model's general instruction-following ability.
 
 ---
 
@@ -50,7 +50,7 @@ Llama 3 8B Instruct
         │
         ▼
 ┌─────────────────────────────────────┐
-│         QLoRA Configuration          │
+│         QLoRA Configuration         │
 │                                     │
 │  4-bit quantization (bitsandbytes)  │
 │  NF4 quantization type              │
@@ -60,7 +60,7 @@ Llama 3 8B Instruct
                │
                ▼
 ┌─────────────────────────────────────┐
-│         LoRA Adapter Config          │
+│         LoRA Adapter Config         │
 │                                     │
 │  Target modules: q_proj, v_proj,    │
 │  k_proj, o_proj, gate_proj,         │
@@ -73,7 +73,7 @@ Llama 3 8B Instruct
                │
                ▼
 ┌─────────────────────────────────────┐
-│         Training Pipeline            │
+│         Training Pipeline           │
 │                                     │
 │  Dataset (18,000 pairs)             │
 │         │                           │
@@ -101,7 +101,7 @@ Llama 3 8B Instruct
                │
                ▼
 ┌─────────────────────────────────────┐
-│      Fine-Tuned Model                │
+│      Fine-Tuned Model               │
 │      Llama 3 8B + LoRA Adapters     │
 │                                     │
 │  Deployed as internal policy bot    │
@@ -198,13 +198,6 @@ using company terminology. Always respond in valid JSON format.
 | Quantisation | 4-bit NF4 (bitsandbytes) | Memory efficiency |
 | Compute dtype | bfloat16 | Numerical stability |
 
-### Tech Stack
-
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-yellow)
-![PEFT](https://img.shields.io/badge/PEFT-LoRA-green)
-![TRL](https://img.shields.io/badge/TRL-SFTTrainer-orange)
-![bitsandbytes](https://img.shields.io/badge/bitsandbytes-4bit_QLoRA-red)
 
 | Library | Version | Role |
 |---|---|---|
@@ -241,7 +234,7 @@ using company terminology. Always respond in valid JSON format.
 
 **Why human evaluation mattered more than NLP benchmarks:**
 
-This was a business application. ROUGE and BLEU scores measure surface similarity to reference outputs — useful for translation and summarisation. For a policy bot where correctness, format compliance, and hallucination rate are the actual success criteria, human evaluation against real business queries is more meaningful.
+This was a business application. ROUGE and BLEU scores measure surface similarity to reference outputs useful for translation and summarisation. For a policy bot where correctness, format compliance, and hallucination rate are the actual success criteria, human evaluation against real business queries is more meaningful.
 
 ### What the Evaluation Caught
 
@@ -268,7 +261,7 @@ TRL's SFTTrainer handles packing, padding, and the instruction masking (masking 
 For a policy bot in a business context, exact match and ROUGE scores are misleading. A response can be factually correct, well-formatted, and appropriately concise while scoring poorly on ROUGE if the wording differs from the reference. Human evaluation against real business queries is the ground truth.
 
 **Adapter merge for inference**
-After training, LoRA adapters were merged back into the base model weights for inference. This eliminates the adapter overhead at inference time and simplifies deployment — the merged model behaves identically to a normally fine-tuned model at serving time.
+After training, LoRA adapters were merged back into the base model weights for inference. This eliminates the adapter overhead at inference time and simplifies deployment the merged model behaves identically to a normally fine-tuned model at serving time.
 
 ---
 
@@ -289,4 +282,4 @@ After training, LoRA adapters were merged back into the base model weights for i
 
 
 
-**Human evaluation is non-negotiable for business applications.** Automated metrics would have told a misleading story. The real improvement — fewer domain errors, consistent formatting, reduced hallucination on company-specific queries — only shows up clearly in human evaluation against real business queries.
+**Human evaluation is non-negotiable for business applications.** Automated metrics would have told a misleading story. The real improvement fewer domain errors, consistent formatting, reduced hallucination on company-specific queries only shows up clearly in human evaluation against real business queries.
