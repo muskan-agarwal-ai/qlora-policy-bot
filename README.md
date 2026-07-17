@@ -15,7 +15,7 @@ Large language models like Llama 3 8B Instruct are strong general reasoners. But
 
 The goal was not to change the model's reasoning ability — it already had that. The goal was **domain adaptation**: teaching the model to answer in the right format, using the right terminology, grounded in the right knowledge base.
 
-Full fine-tuning of an 8B parameter model was not cost-effective for this use case. LoRA (Low-Rank Adaptation) allowed us to adapt the model's behaviour by training a small number of additional parameters while keeping the base weights frozen — achieving the domain alignment we needed at a fraction of the compute cost.
+Full fine-tuning of an 8B parameter model was not cost-effective for this use case. LoRA (Low-Rank Adaptation) allowed us to adapt the model's behaviour by training a small number of additional parameters while keeping the base weights frozen  achieving the domain alignment we needed at a fraction of the compute cost.
 
 ---
 
